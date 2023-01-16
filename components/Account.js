@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useUser, useSupabaseClient } from "@supabase/auth-helpers-react";
+import Avatar from "./Avatar";
 
 const Account = ({ session }) => {
   const supabase = useSupabaseClient(); //supabase client
@@ -68,6 +69,17 @@ const Account = ({ session }) => {
 
   return (
     <div>
+      <div>
+        <Avatar
+          uid={user.id}
+          url={avatar_url}
+          size={150}
+          onUpload={(url) => {
+            setAvatarUrl(url);
+            updateProfile({ username, website, avatar_url: url });
+          }}
+        />
+      </div>
       <div>
         <label htmlFor="email">Email</label>
         <input id="email" type="text" value={session.user.email} disabled />
